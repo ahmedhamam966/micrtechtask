@@ -1,0 +1,105 @@
+<div class="container-fluid  ">
+<p-table #dt [columns]="cols" [value]="details" selectionMode="single" [(selection)]="detail1"
+    (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="35">
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="fas fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+     
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="detail" let-details>
+        <tr [pSelectableRow]="rowData" >
+            <ng-container *ngFor='let user of user' >
+                <td *ngIf="details.user_id==user._id" >{{ user.name  }}</td>
+            </ng-container>
+            <td>{{details.text }}</td>
+            <td>{{details.done }}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+        </div>
+    </ng-template>
+</p-table>
+<!--  for add-->
+<p-dialog header=" Details" [(visible)]="displayDialogforadd" [focusOnShow]="false" [responsive]="true"
+    showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+    <form class="form" #myform="ngForm" (ngSubmit)='save(myform.value)'>
+        <div class="ui-g ui-fluid" >
+            <div class="ui-g-12 form-group">
+                <div class="ui-g-4">
+                    <label for="text">Text</label>
+                </div>
+                <div class="ui-g-8" >
+                     <input pInputText id="vin" [(ngModel)]="detail1.text" name="text" autofocus />
+
+                </div>
+            </div>
+
+            <div class="ui-g-12  form-group">
+                <div class="ui-g-4">
+                    <label for="done">Done</label>
+                </div>
+                <div class="ui-g-8">
+                     <input pInputText id="vin" [(ngModel)]="detail1.done" name="done" autofocus />
+
+                </div>
+            </div>
+      </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" pButton icon="fa fa-check" label="Save"></button>
+            </div>
+        </p-footer>
+    </form>
+</p-dialog>
+
+                            <!--  for edit-->
+
+<p-dialog header=" Details" [(visible)]="displayDialogforedit" [focusOnShow]="false" [responsive]="true"
+    showEffect="fade" [modal]="true" [style]="{width: '300px'}">
+    <form class="form" #myForm="ngForm" (ngSubmit)='edit(myForm.value)'>
+
+    <div class="ui-g ui-fluid"  >
+      
+        <div class="ui-g-12 form-group">
+            <div class="ui-g-4">
+                <label for="text">Text</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="text" name="text" [(ngModel)]="detail1.text" autofocus />
+            </div>
+        </div>
+        <input type="hidden" name="_id"
+        value="{{detail1._id}}"  >
+        <div class="ui-g-12 form-group">
+            <div class="ui-g-4">
+                <label for="done">Done</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="done" name="done" [(ngModel)]="detail1.done" autofocus />
+            </div>
+        </div>
+       
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fas fa-times" (click)="delete()" label="Delete"
+                value="{{detail1._id}}"></button> &nbsp;&nbsp;
+            <button type="submit" pButton icon="fa fa-check"  label="Save"></button>
+        </div>
+    </p-footer>
+    
+    </form>
+</p-dialog></div>

@@ -1,0 +1,18 @@
+<div class="container-fluid mb-5 ">
+<div class="row">
+<div class="nav ">
+    <div class="nav-header">
+      <div class="nav-title ">
+        MICROTEC
+      </div>
+    </div>
+     
+    
+    <div class="nav-links ml-auto">
+        <a class="nav-item nav-link" routerLink="/login"  *ngIf="!UserService.loggedin()">login</a>
+        <a class="nav-item nav-link" routerLink="/register"  *ngIf="!UserService.loggedin()">register</a>
+        <a class="nav-item nav-link" routerLink="/home"  *ngIf="UserService.loggedin()">home</a>
+
+        <a class="nav-item nav-link" (click)="logout()"  *ngIf="UserService.loggedin()">Logout</a>
+    </div>
+  </div></div></div>

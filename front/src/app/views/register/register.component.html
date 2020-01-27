@@ -1,0 +1,38 @@
+<div class="form_wrapper">
+    <div class="form_container">
+      <div class="title_container">
+        <h2>Register To MICROTEC    </h2>
+      </div>
+     
+        <div class="">
+          <form  [formGroup]="registerForm" #myForm (ngSubmit)='onSubmit()'>
+            <div class="input_field form-group"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+              <input type="text" placeholder="username"  formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"  ngModel  />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Your Name is required</div>
+            </div>
+            </div>
+            <div class="input_field form-group"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="email" name="email" placeholder="email" required  formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  ngModel />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+            </div>
+            <div class="input_field form-group"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="password" name="password" placeholder="Password" required  formControlName="password" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  ngModel />
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+            </div>
+                
+            <input class="button" type="submit" value="Register" />
+          </form>
+        </div>
+     </div>
+  </div>
+ 
